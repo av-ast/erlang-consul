@@ -1,0 +1,15 @@
+{application, ec,
+ [
+  {description, "An Erlang client library for Consul HTTP REST API"},
+  {vsn, "0.1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  lager,
+                  lhttpc,
+                  uri
+                 ]},
+  {mod, { ec, []}},
+  {env, []}
+ ]}.
