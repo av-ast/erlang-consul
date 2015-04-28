@@ -2,7 +2,7 @@
  [
   {description, "An Erlang client library for Consul HTTP REST API"},
   {vsn, "0.1"},
-  {registered, []},
+  {registered, [ec_sup, ec_worker]},
   {applications, [
                   kernel,
                   stdlib,
@@ -11,5 +11,20 @@
                   uri
                  ]},
   {mod, { ec, []}},
-  {env, []}
+  {modules, [
+              ec_kv,
+              ec_agent,
+              ec_catalog,
+              ec_health,
+              ec_session,
+              ec_acl,
+              ec_event,
+              ec_status
+            ]},
+  {env, [
+          {host, "mc1"},
+          {port, 8500},
+          {protocol_version, "v1"},
+          {request_timeout, 1000}
+        ]}
  ]}.
