@@ -9,10 +9,16 @@
 %% @reference See <a href="https://www.consul.io/docs/agent/http/kv.html">https://www.consul.io/docs/agent/http/kv.html</a>
 %% @doc By default, the datacenter of the agent is queried; however, the dc can be provided using the "?dc=" query parameter.
 
+%% @doc
+%% Gets value by specified key
+%%
 %% @spec get(Key::string()) -> {ok, term()} | {error, bad_request, term()} | {error, key_not_found} | {error, request_failed}
 get(Key) ->
     get(Key, []).
 
+%% @doc
+%% Gets value by specified key with query string params
+%%
 %% @spec get(Key::string(), QueryParams::list()) -> {ok, term()} | {error, bad_request, term()} | {error, key_not_found} | {error, request_failed}
 get(Key, QueryParams) ->
     Response = ec_request:get("/kv/" ++ Key, QueryParams),
@@ -29,10 +35,16 @@ get(Key, QueryParams) ->
             {error, request_failed}
     end.
 
+%% @doc
+%% Sets value for key
+%%
 %% @spec set(Key::string(), Value::string()) -> {ok, term()} | {error, bad_request, term()} | {error, request_failed}
 set(Key, Value) ->
     set(Key, Value, []).
 
+%% @doc
+%% Sets value for key with query string params
+%%
 %% @spec set(Key::string(), Value::string(), QueryParams::list()) -> {ok, term()} | {error, bad_request, term()} | {error, request_failed}
 set(Key, Value, QueryParams) ->
     Response = ec_request:put("/kv/" ++ Key, ec_utils:to_list(Value), QueryParams),
@@ -46,10 +58,16 @@ set(Key, Value, QueryParams) ->
             {error, request_failed}
     end.
 
+%% @doc
+%% Deletes value by specified key
+%%
 %% @spec delete(Key::string()) -> {ok, term()} | {error, bad_request, term()} | {error, request_failed}
 delete(Key) ->
     delete(Key, []).
 
+%% @doc
+%% Deletes value by specified key with query string params
+%%
 %% @spec delete(Key::string(), QueryParams::list()) -> {ok, term()} | {error, bad_request, term()} | {error, request_failed}
 delete(Key, QueryParams) ->
     Response = ec_request:delete("/kv/" ++ Key, QueryParams),
