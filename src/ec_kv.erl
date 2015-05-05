@@ -18,11 +18,14 @@ get(Key) ->
 
 %% @doc
 %% Gets value by specified key with query string params
+%% Examples of query string params:
+%%    {recurse, 1} - returns all keys with the given prefix
+%%    {raw, 1} - returns raw value w/o extra meta info
+%%    {keys, 1} - returns a list of the keys under the given prefix
 %%
 %% @spec get(Key::string(), QueryParams::list()) -> {ok, term()} | {error, bad_request, term()} | {error, key_not_found} | {error, request_failed}
 get(Key, QueryParams) ->
     Response = ec_request:get("/kv/" ++ Key, QueryParams),
-    io:format("~n~p~n", [Response]),
     case Response of
         {ok, {{200, _}, _Headers, Body}} ->
             {ok, build_get_response(Body)};
